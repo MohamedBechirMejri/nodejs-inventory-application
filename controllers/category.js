@@ -124,3 +124,17 @@ exports.postEditCategory = [
     }
   },
 ];
+
+exports.getDeleteCategory = (req, res, next) => {
+  Category.findById(req.params.id).exec((err, category) => {
+    if (err) {
+      return next(err);
+    }
+    if (category === null) {
+      const error = new Error("Category not found");
+      error.status = 404;
+      return next(error);
+    }
+    res.render("categories/delete", { category });
+  });
+};
