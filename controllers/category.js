@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 const debug = require("debug")("app:category");
 const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 const Category = require("../models/category");
 const Item = require("../models/item");
@@ -46,3 +47,39 @@ exports.getCategory = (req, res, next) => {
 exports.getCreateCategory = (req, res) => {
   res.render("categories/create");
 };
+
+exports.postCreateCategory = [
+  (req, res, next) => {
+    body("name", "Name must not be empty").isLength({ min: 1 }).escape();
+  },
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const category = new Category({
+      name: req.body.name,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("categories/create", {
+        errors: errors.array(),
+        name: req.body.name,
+      });
+    } else {
+      Category.findOne({ name: req.body.name }).exec((err, foundCategory) => {
+        if (err) {
+          return next(err);
+        }
+        if (foundCategory) {
+          res.redirect(foundCategory.url);
+        } else {
+          category.save(errr => {
+            if (errr) {
+              return next(errr);
+            }
+            res.redirect(category.url);
+          });
+        }
+      });
+    }
+  },
+];
