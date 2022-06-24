@@ -42,3 +42,7 @@ exports.getCategory = (req, res, next) => {
     }
   );
 };
+
+exports.getCreateCategory = (req, res) => {
+  res.render("categories/create");
+};
