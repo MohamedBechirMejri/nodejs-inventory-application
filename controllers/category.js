@@ -49,9 +49,8 @@ exports.getCreateCategory = (req, res) => {
 };
 
 exports.postCreateCategory = [
-  (req, res, next) => {
-    body("name", "Name must not be empty").isLength({ min: 1 }).escape();
-  },
+  body("name", "Name must not be empty").isLength({ min: 1 }).escape(),
+
   (req, res, next) => {
     const errors = validationResult(req);
 
@@ -98,9 +97,8 @@ exports.getEditCategory = (req, res, next) => {
 };
 
 exports.postEditCategory = [
-  (req, res, next) => {
-    body("name", "Name must not be empty").isLength({ min: 1 }).escape();
-  },
+  body("name", "Name must not be empty").isLength({ min: 1 }).escape(),
+
   (req, res, next) => {
     const errors = validationResult(req);
 
@@ -138,3 +136,31 @@ exports.getDeleteCategory = (req, res, next) => {
     res.render("categories/delete", { category });
   });
 };
+
+exports.postDeleteCategory = [
+  body("adminpass", "Wrong Admin Password")
+    .equals(process.env.ADMIN_PASS)
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      Category.findById(req.params.id).exec((err, category) => {
+        if (err) {
+          return next(err);
+        }
+        if (category === null) {
+          const error = new Error("Category not found");
+          error.status = 404;
+          return next(error);
+        }
+        res.render("categories/delete", { errors: errors.array(), category });
+      });
+    }
+    Category.findByIdAndRemove(req.params.id, err => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/categories");
+    });
+  },
+];
