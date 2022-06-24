@@ -96,3 +96,31 @@ exports.getEditCategory = (req, res, next) => {
     res.render("categories/edit", { category });
   });
 };
+
+exports.postEditCategory = [
+  (req, res, next) => {
+    body("name", "Name must not be empty").isLength({ min: 1 }).escape();
+  },
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("categories/edit", {
+        errors: errors.array(),
+        name: req.body.name,
+      });
+    } else {
+      Category.findByIdAndUpdate(
+        req.params.id,
+        { $set: { name: req.body.name } },
+        { new: true },
+        (err, category) => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(category.url);
+        }
+      );
+    }
+  },
+];
