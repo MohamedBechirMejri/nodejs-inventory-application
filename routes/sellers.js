@@ -4,7 +4,7 @@ const router = express.Router();
 
 const sellerController = require("../controllers/seller");
 
-router.get("/", sellerController.getSellers);
+router.get("/", sellerController.index);
 
 router.get("/:id", sellerController.getSeller);
 
