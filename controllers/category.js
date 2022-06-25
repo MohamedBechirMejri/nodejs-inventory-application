@@ -63,23 +63,17 @@ exports.postCreateCategory = [
         errors: errors.array(),
         name: req.body.name,
       });
-    } else {
-      Category.findOne({ name: req.body.name }).exec((err, foundCategory) => {
-        if (err) {
-          return next(err);
-        }
-        if (foundCategory) {
-          res.redirect(foundCategory.url);
-        } else {
-          category.save(errr => {
-            if (errr) {
-              return next(errr);
-            }
-            res.redirect(category.url);
-          });
-        }
-      });
+      return;
     }
+    Category.findOne({ name: req.body.name }).exec((err, foundCategory) => {
+      if (err) return next(err);
+      if (foundCategory) res.redirect(foundCategory.url);
+      else
+        category.save(errr => {
+          if (errr) return next(errr);
+          res.redirect(category.url);
+        });
+    });
   },
 ];
 exports.getEditCategory = (req, res, next) => {
