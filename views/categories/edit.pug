@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+    h1 Edit #{category.name}
+    form(action="" method="POST")
+        if error
+            p.error= error
+
+
+        input(type="text" name="name" placeholder="Name" value=category.name required autofocus)
+        input(type="submit" value="Submit")
