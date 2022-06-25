@@ -3,5 +3,11 @@ extends ../layout
 block content
     h1 New Category
     form(action="/categories/create" method="POST")
-        input(type="text" name="name" placeholder="Name" required)
+        if error
+            p.error= error
+
+        if category
+            input(type="text" name="name" placeholder="Name" value=category.name    required autofocus)
+        else
+            input(type="text" name="name" placeholder="Name" required)
         input(type="submit" value="Create")
