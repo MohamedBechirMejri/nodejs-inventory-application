@@ -51,4 +51,4 @@ ItemsSchema.virtual("url").get(function () {
   return `/items/${this._id}`;
 });
 
-module.exports = model("Items", ItemsSchema);
+module.exports = model("Item", ItemsSchema);

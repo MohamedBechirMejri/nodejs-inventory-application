@@ -40,4 +40,4 @@ SellersSchema.virtual("url").get(function () {
   return `/sellers/${this._id}`;
 });
 
-module.exports = model("Sellers", SellersSchema);
+module.exports = model("Seller", SellersSchema);
