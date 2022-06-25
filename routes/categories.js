@@ -4,29 +4,29 @@ const router = express.Router();
 
 const {
   index,
-  getCategory,
-  getCreateCategory,
-  postCreateCategory,
-  getEditCategory,
-  postEditCategory,
-  getDeleteCategory,
-  postDeleteCategory,
+  read,
+  createGet,
+  createPost,
+  updateGet,
+  updatePost,
+  deleteGet,
+  deletePost,
 } = require("../controllers/category");
 
 router.get("/", index);
 
-router.get("/create", getCreateCategory);
+router.get("/create", createGet);
 
-router.post("/create", postCreateCategory);
+router.post("/create", createPost);
 
-router.get("/:id", getCategory);
+router.get("/:id", read);
 
-router.get("/:id/edit", getEditCategory);
+router.get("/:id/edit", updateGet);
 
-router.post("/:id/edit", postEditCategory);
+router.post("/:id/edit", updatePost);
 
-router.get("/:id/delete", getDeleteCategory);
+router.get("/:id/delete", deleteGet);
 
-router.post("/:id/delete", postDeleteCategory);
+router.post("/:id/delete", deletePost);
 
 module.exports = router;
