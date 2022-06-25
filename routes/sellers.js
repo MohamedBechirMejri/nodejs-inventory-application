@@ -4,29 +4,29 @@ const router = express.Router();
 
 const {
   index,
-  getSeller,
-  getCreateSeller,
-  postCreateSeller,
-  getEditSeller,
-  postEditSeller,
-  getDeleteSeller,
-  postDeleteSeller,
+  read,
+  createGet,
+  createPost,
+  updateGet,
+  updatePost,
+  deleteGet,
+  deletePost,
 } = require("../controllers/seller");
 
 router.get("/", index);
 
-router.get("/create", getCreateSeller);
+router.get("/create", createGet);
 
-router.post("/create", postCreateSeller);
+router.post("/create", createPost);
 
-router.get("/:id", getSeller);
+router.get("/:id", read);
 
-router.get("/:id/edit", getEditSeller);
+router.get("/:id/edit", updateGet);
 
-router.post("/:id/edit", postEditSeller);
+router.post("/:id/edit", updatePost);
 
-router.get("/:id/delete", getDeleteSeller);
+router.get("/:id/delete", deleteGet);
 
-router.post("/:id/delete", postDeleteSeller);
+router.post("/:id/delete", deletePost);
 
 module.exports = router;
