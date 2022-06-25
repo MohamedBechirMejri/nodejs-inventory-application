@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    h1 Delete #{category.name}
+    form(action="" method="POST")
+        if errors && errors.length > 0
+            each error in errors
+                p.error= error.msg
+
+        input(type="text" name="adminpass" placeholder="Password" required autofocus)
+        input(type="hidden" value=category._id required)
+        input(type="submit" value="Submit")
