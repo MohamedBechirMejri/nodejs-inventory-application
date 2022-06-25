@@ -34,13 +34,13 @@ const ItemsSchema = new Schema(
     category: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Categorie",
+        ref: "category",
         required: true,
       },
     ],
     seller: {
       type: Schema.Types.ObjectId,
-      ref: "Sellers",
+      ref: "seller",
       required: true,
     },
   },
