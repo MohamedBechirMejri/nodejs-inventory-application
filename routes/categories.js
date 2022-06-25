@@ -15,11 +15,11 @@ const {
 
 router.get("/", index);
 
-router.get("/:id", getCategory);
-
 router.get("/create", getCreateCategory);
 
 router.post("/create", postCreateCategory);
+
+router.get("/:id", getCategory);
 
 router.get("/:id/edit", getEditCategory);
 
