@@ -16,7 +16,7 @@ exports.index = (req, res) => {
     });
 };
 
-exports.getCategory = (req, res, next) => {
+exports.read = (req, res, next) => {
   async.parallel(
     {
       category: callback => {
@@ -44,11 +44,11 @@ exports.getCategory = (req, res, next) => {
   );
 };
 
-exports.getCreateCategory = (req, res) => {
+exports.createGet = (req, res) => {
   res.render("categories/create");
 };
 
-exports.postCreateCategory = [
+exports.createPost = [
   body("name", "Name must not be empty").isLength({ min: 1 }).escape(),
 
   (req, res, next) => {
@@ -76,7 +76,7 @@ exports.postCreateCategory = [
     });
   },
 ];
-exports.getEditCategory = (req, res, next) => {
+exports.updateGet = (req, res, next) => {
   Category.findOne({ _id: req.params.id }).exec((err, category) => {
     if (err) {
       return next(err);
@@ -90,7 +90,7 @@ exports.getEditCategory = (req, res, next) => {
   });
 };
 
-exports.postEditCategory = [
+exports.updatePost = [
   body("name", "Name must not be empty").isLength({ min: 1 }).escape(),
 
   (req, res, next) => {
@@ -117,7 +117,7 @@ exports.postEditCategory = [
   },
 ];
 
-exports.getDeleteCategory = (req, res, next) => {
+exports.deleteGet = (req, res, next) => {
   Category.findById(req.params.id).exec((err, category) => {
     if (err) {
       return next(err);
@@ -131,7 +131,7 @@ exports.getDeleteCategory = (req, res, next) => {
   });
 };
 
-exports.postDeleteCategory = [
+exports.deletePost = [
   body("adminpass")
     .equals(process.env.ADMIN_PASS)
     .withMessage("Wrong Admin Password")
