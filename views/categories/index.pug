@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+    each category in categories
+        h1
+            a(href=category.url)
+                | #{category.name}
+    if categories.length == 0
+        p No categories found
+    end
