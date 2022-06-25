@@ -105,7 +105,7 @@ exports.postEditCategory = [
       Category.findByIdAndUpdate(
         req.params.id,
         { $set: { name: req.body.name } },
-        { new: true },
+
         (err, category) => {
           if (err) {
             return next(err);
