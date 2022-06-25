@@ -16,14 +16,13 @@ const SellersSchema = new Schema(
       unique: true,
       trim: true,
       minlength: 3,
-      maxlength: 20,
     },
     phone: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      minlength: 3,
+      minlength: 7,
       maxlength: 20,
     },
     image: {
