@@ -42,3 +42,7 @@ exports.read = (req, res, next) => {
     }
   );
 };
+
+exports.createGet = (req, res) => {
+  res.render("sellers/create");
+};
