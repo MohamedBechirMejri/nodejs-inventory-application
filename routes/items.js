@@ -4,29 +4,29 @@ const router = express.Router();
 
 const {
   index,
-  getItem,
-  getCreateItem,
-  postCreateItem,
-  getEditItem,
-  postEditItem,
-  getDeleteItem,
-  postDeleteItem,
+  read,
+  createGet,
+  createPost,
+  updateGet,
+  updatePost,
+  deleteGet,
+  deletePost,
 } = require("../controllers/item");
 
 router.get("/", index);
 
-router.get("/create", getCreateItem);
+router.get("/create", createGet);
 
-router.post("/create", postCreateItem);
+router.post("/create", createPost);
 
-router.get("/:id", getItem);
+router.get("/:id", read);
 
-router.get("/:id/edit", getEditItem);
+router.get("/:id/edit", updateGet);
 
-router.post("/:id/edit", postEditItem);
+router.post("/:id/edit", updatePost);
 
-router.get("/:id/delete", getDeleteItem);
+router.get("/:id/delete", deleteGet);
 
-router.post("/:id/delete", postDeleteItem);
+router.post("/:id/delete", deletePost);
 
 module.exports = router;
