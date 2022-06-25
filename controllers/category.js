@@ -132,11 +132,13 @@ exports.getDeleteCategory = (req, res, next) => {
 };
 
 exports.postDeleteCategory = [
-  body("adminpass", "Wrong Admin Password")
+  body("adminpass")
     .equals(process.env.ADMIN_PASS)
+    .withMessage("Wrong Admin Password")
     .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       Category.findById(req.params.id).exec((err, category) => {
         if (err) {
@@ -149,12 +151,12 @@ exports.postDeleteCategory = [
         }
         res.render("categories/delete", { errors: errors.array(), category });
       });
-    }
-    Category.findByIdAndRemove(req.params.id, err => {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/categories");
-    });
+    } else
+      Category.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/categories");
+      });
   },
 ];
