@@ -15,11 +15,11 @@ const {
 
 router.get("/", index);
 
-router.get("/:id", getItem);
-
 router.get("/create", getCreateItem);
 
 router.post("/create", postCreateItem);
+
+router.get("/:id", getItem);
 
 router.get("/:id/edit", getEditItem);
 
