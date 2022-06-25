@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    h1= category.name
+    div
+        each item in items
+            h2
+                a(href=item.url)
+                    | #{item.name}
+                p Description: #{item.description}
+                p Price: #{item.price}
+                p Stock: #{item.stock}
