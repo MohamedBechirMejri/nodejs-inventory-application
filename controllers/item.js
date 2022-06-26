@@ -246,3 +246,19 @@ exports.updatePost = [
     );
   },
 ];
+
+exports.deleteGet = (req, res, next) => {
+  Item.findById(req.params.id, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    if (item === null) {
+      const error = new Error("Item not found");
+      error.status = 404;
+      return next(error);
+    }
+    res.render("items/delete", {
+      item,
+    });
+  }).populate("seller category");
+};
