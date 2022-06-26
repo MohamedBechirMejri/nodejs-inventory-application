@@ -5,7 +5,6 @@ const SellersSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
       minlength: 3,
       maxlength: 20,
