@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 const debug = require("debug")("app:item");
 const async = require("async");
@@ -123,3 +124,48 @@ exports.createPost = [
     });
   },
 ];
+exports.updateGet = (req, res, next) => {
+  async.parallel(
+    {
+      item: callback => {
+        Item.findById(req.params.id).populate("seller category").exec(callback);
+      },
+      categories: callback => {
+        Category.find().exec(callback);
+      },
+      sellers: callback => {
+        Seller.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.item === null) {
+        const error = new Error("Item not found");
+        error.status = 404;
+        return next(error);
+      }
+
+      results.sellers.forEach(seller => {
+        if (seller._id.toString() === results.item.seller.toString()) {
+          seller.selected = true;
+        }
+      });
+
+      results.categories.forEach(category => {
+        results.item.category.forEach(itemCategory => {
+          if (category._id.toString() === itemCategory.toString()) {
+            category.checked = true;
+          }
+        });
+      });
+
+      res.render("items/update", {
+        item: results.item,
+        categories: results.categories,
+        sellers: results.sellers,
+      });
+    }
+  );
+};
