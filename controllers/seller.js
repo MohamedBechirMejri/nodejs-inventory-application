@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
 const debug = require("debug")("app:seller");
 const async = require("async");
@@ -56,7 +57,7 @@ exports.createPost = [
     .not()
     .isEmpty()
     .withMessage("Image link no provided")
-    .isURL()
+    .contains("http")
     .withMessage("Image link must be valid"),
   (req, res, next) => {
     const errors = validationResult(req);
@@ -74,15 +75,30 @@ exports.createPost = [
         seller,
       });
 
-    Seller.findOne({ email: req.body.email }).then(foundSeller => {
-      if (foundSeller) {
-        return res.redirect(foundSeller.url);
-      }
-      seller.save(err => {
+    async.parallel(
+      {
+        sellerbyEmail: callback => {
+          Seller.findOne({ email: req.body.email }).exec(callback);
+        },
+        sellerbyPhone: callback => {
+          Seller.findOne({ phone: req.body.phone }).exec(callback);
+        },
+      },
+      (err, results) => {
         if (err) return next(err);
-        res.redirect(seller.url);
-      });
-    });
+
+        if (results.sellerbyEmail)
+          return res.redirect(results.sellerbyEmail.url);
+
+        if (results.sellerbyPhone)
+          return res.redirect(results.sellerbyPhone.url);
+
+        seller.save(err => {
+          if (err) return next(err);
+          res.redirect(seller.url);
+        });
+      }
+    );
   },
 ];
 
