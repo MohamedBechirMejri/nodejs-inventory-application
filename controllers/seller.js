@@ -143,3 +143,18 @@ exports.updatePost = [
     );
   },
 ];
+
+exports.deleteGet = (req, res, next) => {
+  Seller.findById(req.params.id)
+    .then(seller => {
+      if (seller === null) {
+        const error = new Error("Seller not found");
+        error.status = 404;
+        return next(error);
+      }
+      res.render("sellers/delete", { seller });
+    })
+    .catch(err => {
+      debug(err);
+    });
+};
