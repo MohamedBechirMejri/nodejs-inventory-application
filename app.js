@@ -22,7 +22,12 @@ const sellersRouter = require("./routes/sellers");
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
 app.use(compression()); // Compress all routes
 
