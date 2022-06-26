@@ -192,7 +192,7 @@ exports.updatePost = [
   (req, res, next) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
+    if (!errors.isEmpty())
       async.parallel(
         {
           categories: callback => {
@@ -203,9 +203,7 @@ exports.updatePost = [
           },
         },
         (err, results) => {
-          if (err) {
-            return next(err);
-          }
+          if (err) return next(err);
           res.render("items/update", {
             categories: results.categories,
             sellers: results.sellers,
@@ -214,8 +212,6 @@ exports.updatePost = [
           });
         }
       );
-      return;
-    }
 
     Item.findByIdAndUpdate(
       req.params.id,
@@ -231,9 +227,7 @@ exports.updatePost = [
         },
       },
       (err, item) => {
-        if (err) {
-          return next(err);
-        }
+        if (err) return next(err);
 
         if (item === null) {
           const error = new Error("Item not found");
@@ -249,9 +243,7 @@ exports.updatePost = [
 
 exports.deleteGet = (req, res, next) => {
   Item.findById(req.params.id, (err, item) => {
-    if (err) {
-      return next(err);
-    }
+    if (err) return next(err);
     if (item === null) {
       const error = new Error("Item not found");
       error.status = 404;
@@ -262,3 +254,37 @@ exports.deleteGet = (req, res, next) => {
     });
   }).populate("seller category");
 };
+
+exports.deletePost = [
+  body("adminpass")
+    .equals(process.env.ADMIN_PASS)
+    .withMessage("Wrong Admin Password")
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+      Item.findById(req.params.id, (err, item) => {
+        if (err) {
+          return next(err);
+        }
+        if (item === null) {
+          const error = new Error("Item not found");
+          error.status = 404;
+          return next(error);
+        }
+        res.render("items/delete", {
+          item,
+          errors: errors.array(),
+          adminpass: req.body.adminpass,
+        });
+      });
+    else
+      Item.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/items");
+      });
+  },
+];
