@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+
+    form(action='' method='post')
+        if errors
+            ul
+                each error in errors
+                    li= error.msg
+        h1 Create Seller
+        input(type='text' name='name' required placeholder='Name')
+        input(type="email" name="email" required placeholder="Email")
+        input(type='phone' name='phone' required placeholder='Phone')
+        input(type='text' name='image' required placeholder='Image Url')
+        input(type='submit' value='Create')
