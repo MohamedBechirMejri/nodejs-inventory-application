@@ -38,3 +38,25 @@ exports.read = (req, res, next) => {
     }
   );
 };
+
+const createGet = (req, res, next) => {
+  async.parallel(
+    {
+      categories: callback => {
+        Category.find().exec(callback);
+      },
+      sellers: callback => {
+        Seller.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      res.render("items/create", {
+        categories: results.categories,
+        sellers: results.sellers,
+      });
+    }
+  );
+};
