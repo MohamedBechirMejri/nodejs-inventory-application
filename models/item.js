@@ -31,7 +31,7 @@ const ItemsSchema = new Schema(
       required: true,
       trim: true,
     },
-    category: [
+    categories: [
       {
         type: Schema.Types.ObjectId,
         ref: "category",
