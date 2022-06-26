@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+
+    h1 Sellers
+    ul
+        each seller in sellers
+            li
+                a(href='{{seller.url}}') {{seller.name}}
