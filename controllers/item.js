@@ -87,6 +87,7 @@ exports.createPost = [
       price: req.body.price,
       description: req.body.description,
       image: req.body.image,
+      stock: req.body.stock,
       seller: req.body.seller,
       category: req.body.category,
     });
@@ -169,3 +170,79 @@ exports.updateGet = (req, res, next) => {
     }
   );
 };
+
+exports.updatePost = [
+  body("name", "Name must be at least 3 characters long")
+    .isLength({ min: 1 })
+    .escape(),
+  body("price", "Price must be a number").isNumeric().escape(),
+  body("description", "Description must be at least 15 characters long")
+    .isLength({ min: 15 })
+    .escape(),
+  body("image")
+    .not()
+    .isEmpty()
+    .withMessage("Image link no provided")
+    .isURL()
+    .withMessage("Image link must be valid"),
+  body("stock", "Stock must be a number").isNumeric().escape(),
+  body("category", "Category must not be empty").not().isEmpty().escape(),
+  body("seller", "Seller must not be empty").not().isEmpty().escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          categories: callback => {
+            Category.find().exec(callback);
+          },
+          sellers: callback => {
+            Seller.find().exec(callback);
+          },
+        },
+        (err, results) => {
+          if (err) {
+            return next(err);
+          }
+          res.render("items/update", {
+            categories: results.categories,
+            sellers: results.sellers,
+            item: req.body,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    }
+
+    Item.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+          image: req.body.image,
+          stock: req.body.stock,
+          seller: req.body.seller,
+          category: req.body.category,
+        },
+      },
+      (err, item) => {
+        if (err) {
+          return next(err);
+        }
+
+        if (item === null) {
+          const error = new Error("Item not found");
+          error.status = 404;
+          return next(error);
+        }
+
+        res.redirect(item.url);
+      }
+    );
+  },
+];
