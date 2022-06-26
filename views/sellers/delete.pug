@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+    h1 Delete #{seller.name} ?
+    if errors
+        ul
+            each error in errors
+                li= error.msg
+    form(action="" method="post")
+        input(type="text" name="adminpass" required placeholder="Admin Password")
+        input(type="submit" value="Confirm")
