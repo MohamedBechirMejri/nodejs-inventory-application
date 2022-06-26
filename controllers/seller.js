@@ -158,3 +158,38 @@ exports.deleteGet = (req, res, next) => {
       debug(err);
     });
 };
+
+exports.deletePost = [
+  body("adminpass")
+    .equals(process.env.ADMIN_PASS)
+    .withMessage("Wrong Admin Password")
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      Seller.findById(req.params.id).exec((err, seller) => {
+        if (err) {
+          return next(err);
+        }
+        if (seller === null) {
+          const error = new Error("Seller not found");
+          error.status = 404;
+          return next(error);
+        }
+        res.render("sellers/delete", { errors: errors.array(), seller });
+      });
+    } else
+      Seller.findByIdAndRemove(req.params.id)
+        .then(seller => {
+          if (seller === null) {
+            const error = new Error("Seller not found");
+            error.status = 404;
+            return next(error);
+          }
+          res.redirect("/sellers");
+        })
+        .catch(err => {
+          debug(err);
+        });
+  },
+];
