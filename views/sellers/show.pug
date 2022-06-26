@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+
+    h1= seller.name
+    p= seller.email
+    p= seller.phone
+    img(src='https://' + seller.image.replace('http://', '').replace('https://', ''), alt="seller")
+
+    if items.length > 0
+        h2 Items
+        ul
+            each item in items
+                li
+                    a(href=item.url) #{item.name}
+    else
+        h1 No Items
+        p= "This seller has no items."
