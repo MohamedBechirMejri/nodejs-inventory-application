@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+
+    if errors
+        each error in errors
+            p= error.msg
+
+    form(action='' method='POST')
+        input(
+            type="text"
+            name="name"
+            value=item ? item.name : ''
+            placeholder='name'
+            required)
+        textarea(
+            name="description"
+            placeholder='description'
+            minlength='15'
+            required)=item ? item.description : ''
+        input(
+            type="number"
+            min='0'
+            name="price"
+            value=item ? item.price : ''
+            placeholder='price'
+            required)
+        input(
+            type="number"
+            min='0'
+            name="stock"
+            value=item ? item.stock : ''
+            placeholder='stock'
+            required)
+        input(
+            type="text"
+            name="image"
+            value=item ? item.image : ''
+            placeholder='image'
+            required)
+        select(
+            name='seller'
+            required)
+            each seller in sellers
+                option(value=seller.id selected=seller.selected)=seller.name
+        select(
+            name='category'
+            required)
+            each category in categories
+                option(value=category.id selected=category.selected)=category.name
+        input(type="submit")
