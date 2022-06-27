@@ -77,7 +77,6 @@ exports.createPost = [
     .isURL()
     .withMessage("Image link must be valid"),
   body("stock", "Stock must be a number").isNumeric().escape(),
-
   body("category", "Category must not be empty").not().isEmpty().escape(),
   body("seller", "Seller must not be empty").not().isEmpty().escape(),
 
