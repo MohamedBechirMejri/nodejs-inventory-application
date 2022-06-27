@@ -30,9 +30,9 @@ code {
   user-select: none;
 }
 
-* {
+/* * {
   cursor: none !important;
-}
+} */
 
 .animated-underline {
   position: relative;
