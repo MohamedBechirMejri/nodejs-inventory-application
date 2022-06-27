@@ -6,8 +6,12 @@ html
   body(class='w-screen min-h-screen ')
     header(class='bg-gray-900 text-white text-center flex justify-between items-center h-16 p-4')
       h1(class='font-bold') B Store
-      nav(class=' font-semibold flex justify-center items-center gap-4')
+      nav(class='font-semibold flex justify-center items-center gap-4')
         a(href='/items') Items
         a(href='/categories') Categories
         a(href='/sellers') Sellers
+      div(class='font-semibold flex justify-center items-center gap-4')
+        a(href='#') Sign up
+        a(href='#') Login
+
     block content
