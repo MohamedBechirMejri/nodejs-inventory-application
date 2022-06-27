@@ -5,7 +5,6 @@ const ItemsSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
       minlength: 3,
       maxlength: 20,
@@ -31,13 +30,12 @@ const ItemsSchema = new Schema(
       required: true,
       trim: true,
     },
-    category: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "category",
-        required: true,
-      },
-    ],
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "category",
+      required: true,
+    },
+
     seller: {
       type: Schema.Types.ObjectId,
       ref: "seller",
