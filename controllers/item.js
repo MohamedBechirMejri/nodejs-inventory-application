@@ -251,7 +251,7 @@ exports.deleteGet = (req, res, next) => {
     res.render("items/delete", {
       item,
     });
-  }).populate("seller category");
+  });
 };
 
 exports.deletePost = [
