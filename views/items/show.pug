@@ -13,7 +13,6 @@ block content
             p= item.created_at
             p= item.stock
             p= item.seller.name
-            each category in item.categories
-                p= category.name
-            a(href="#{item.url}/edit") Edit
-            a(href="#{item.url}/delete") Delete
+            p= item.category.name
+            a(href=item.url + "/edit") Edit
+            a(href=item.url + "/delete") Delete
