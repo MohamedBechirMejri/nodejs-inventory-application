@@ -8,13 +8,14 @@ const Item = require("../models/item");
 const Seller = require("../models/seller");
 const Category = require("../models/category");
 
-exports.index = (req, res) => {
+exports.index = (req, res, next) => {
   Item.find()
-    .then(items => {
-      res.render("items/index", { items });
-    })
-    .catch(err => {
-      debug(err);
+    .populate("seller category")
+    .exec((err, items) => {
+      if (err) return next(err);
+      res.render("items/index", {
+        items,
+      });
     });
 };
 
