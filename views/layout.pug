@@ -4,8 +4,10 @@ html
     title= title
     link(rel='stylesheet' href='/stylesheets/style.css')
   body(class='w-screen min-h-screen ')
-    nav
-      a(href='/items') Items
-      a(href='/categories') Categories
-      a(href='/sellers') Sellers
+    header(class='bg-gray-900 text-white text-center flex justify-between items-center h-16 p-4')
+      h1(class='font-bold') B Store
+      nav(class=' font-semibold flex justify-center items-center gap-4')
+        a(href='/items') Items
+        a(href='/categories') Categories
+        a(href='/sellers') Sellers
     block content
