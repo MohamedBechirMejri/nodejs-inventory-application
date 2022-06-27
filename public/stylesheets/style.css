@@ -683,6 +683,12 @@ select {
 .hidden {
   display: none;
 }
+.min-h-screen {
+  min-height: 100vh;
+}
+.w-screen {
+  width: 100vw;
+}
 .font-bold {
   font-weight: 700;
 }
