@@ -15,10 +15,9 @@ block content
             required)
         textarea(
             name="description"
-            value=item ? item.description : ''
             placeholder='description'
             minlength='15'
-            required)
+            required)=item ? item.description : ''
         input(
             type="number"
             min='0'
