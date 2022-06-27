@@ -3,16 +3,18 @@ extends ../layout
 block content
 
     h1 Items
-    each item in items
-        .item
-            .item-image
-                img(src=item.image)
-            .item-info
-                h2= item.name
-                p= item.description
-                p= item.price
-                p= item.created_at
-                p= item.stock
-                p= item.seller.name
-                each category in item.categories
-                    p= category.name
+    if items.length > 0
+        each item in items
+            .item
+                .item-image
+                    img(src=item.image)
+                .item-info
+                    h2= item.name
+                    p= item.description
+                    p= item.price
+                    p= item.created_at
+                    p= item.stock
+                    p= item.seller.name
+                    p= item.category.name
+    else
+        p No items
