@@ -156,11 +156,9 @@ exports.updateGet = (req, res, next) => {
       });
 
       results.categories.forEach(category => {
-        results.item.category.forEach(itemCategory => {
-          if (category._id.toString() === itemCategory.toString()) {
-            category.checked = true;
-          }
-        });
+        if (category._id.toString() === results.item.category.toString()) {
+          category.selected = true;
+        }
       });
 
       res.render("items/update", {
