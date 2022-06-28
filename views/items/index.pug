@@ -1,20 +1,15 @@
 extends ../layout
 
 block content
-
-    h1 Items
-    if items.length > 0
-        each item in items
-            .item
-                .item-image
-                    img(src=item.image)
-                .item-info
-                    h2= item.name
-                    p= item.description
-                    p= item.price
-                    p= item.created_at
-                    p= item.stock
-                    p= item.seller.name
-                    p= item.category.name
-    else
-        p No items
+    div(class='flex flex-col items-center justify-start w-full h-full p-8 animate-reveal-page')
+        h1(class='text-3xl font-bold') Items
+        if items.length > 0
+            ul(class='flex flex-wrap items-start justify-start w-full h-full gap-[7rem] p-8 pt-12 pl-12 overflow-y-scroll')
+                each item in items
+                    a(href=item.url class='flex items-center justify-center gap-10 pr-12 overflow-hidden transition-all scale-125 bg-white border rounded-lg hover:shadow')
+                        img(src=item.image, alt="item")
+                        p(class='flex flex-col items-center justify-center')
+                            span= item.name
+                            span(class='')= item.price + '$'
+        else
+            p(class='text-center text-gray-500') No items
