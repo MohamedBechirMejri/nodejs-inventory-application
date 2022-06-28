@@ -704,6 +704,9 @@ select {
 .h-80 {
   height: 20rem;
 }
+.h-28 {
+  height: 7rem;
+}
 .w-full {
   width: 100%;
 }
@@ -718,6 +721,9 @@ select {
 }
 .w-\[25em\] {
   width: 25em;
+}
+.w-28 {
+  width: 7rem;
 }
 .max-w-xs {
   max-width: 20rem;
