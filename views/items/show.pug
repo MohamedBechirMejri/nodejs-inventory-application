@@ -1,18 +1,30 @@
 extends ../layout
 
 block content
-
-    h1= item.name
-    .item
-        .item-image
-            img(src=item.image)
-        .item-info
-            h2= item.name
-            p= item.description
-            p= item.price
-            p= item.created_at
-            p= item.stock
-            p= item.seller.name
-            p= item.category.name
-            a(href=item.url + "/edit") Edit
-            a(href=item.url + "/delete") Delete
+    div(class='flex items-center justify-center w-full h-full gap-4 p-8')
+        .flex.flex-col.items-center.justify-center.gap-4
+            img.rounded-lg.w-80.h-80(src=item.image)
+            h1.font-bold.text-3xl= item.name
+            .flex.items-center.justify-center.gap-4
+                a(href=item.url + "/edit" class='p-2 px-4 text-white transition-all bg-green-500 border rounded-lg hover:bg-green-600') Edit
+                a(href=item.url + "/delete" class='p-2 px-4 text-white transition-all bg-red-500 border rounded-lg hover:bg-red-600') Delete
+        .flex.flex-col.items-start.justify-center.gap-4
+            p.max-w-xs
+                span.font-bold Description:
+                | #{' ' + item.description}
+            p
+                span.font-bold Price:
+                | #{' ' + item.price}$
+            p
+                span.font-bold Items in Stock:
+                | #{' ' + item.stock}
+            p
+                span.font-bold Seller:
+                a(href=item.seller.url class='ml-1 transition-all hover:underline') #{item.seller.name}
+            p
+                span.font-bold Category:
+                a(href=item.category.url class='ml-1 transition-all hover:underline') #{item.category.name}
+            p.font-bold
+                | Call
+                a.text-blue-500.transition-all(href='tel:' + item.seller.phone class='ml-1 hover:underline') #{item.seller.phone}
+                |  to buy this item.
