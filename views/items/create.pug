@@ -2,50 +2,60 @@ extends ../layout
 
 block content
 
-    if errors
-        each error in errors
-            p= error.msg
-
-    form(action='' method='POST')
+    form(action='' method='post' class='flex flex-col items-center justify-center w-full h-full gap-12 p-8 animate-reveal-page' autocomplete='off')
+        if errors
+            ul
+                each error in errors
+                    li= error.msg
+        h1(class='text-3xl font-bold') Create Item
         input(
             type="text"
             name="name"
             value=item ? item.name : ''
             placeholder='name'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
         textarea(
             name="description"
             placeholder='description'
             minlength='15'
-            required)=item ? item.description : ''
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300"
+            rows=4
+            )=item ? item.description : ''
         input(
             type="number"
             min='0'
             name="price"
             value=item ? item.price : ''
             placeholder='price'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
         input(
             type="number"
             min='0'
             name="stock"
             value=item ? item.stock : ''
             placeholder='stock'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
         input(
             type="text"
             name="image"
             value=item ? item.image : ''
             placeholder='image'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
         select(
             name='seller'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
             each seller in sellers
                 option(value=seller.id selected=seller.selected)=seller.name
         select(
             name='category'
-            required)
+            required
+            class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
             each category in categories
                 option(value=category.id selected=category.selected)=category.name
-        input(type="submit")
+        input(type='submit' value='Create' class='px-4 py-2 font-bold text-white transition-all bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600')
