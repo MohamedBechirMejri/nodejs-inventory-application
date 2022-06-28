@@ -3,8 +3,8 @@ extends ../layout
 block content
     div(class='flex flex-col items-center justify-start w-full h-full p-8 animate-reveal-page')
         h1(class='text-3xl font-bold') Sellers
-        ul(class='flex flex-wrap items-start justify-start w-full h-full gap-12 p-8 pt-12 pl-12 overflow-y-scroll')
+        ul(class='flex flex-wrap items-start justify-start w-full h-full gap-[7rem] p-8 pt-12 pl-12 overflow-y-scroll')
             each seller in sellers
                 a(href=seller.url class='flex items-center justify-center gap-4 pr-4 overflow-hidden transition-all scale-125 bg-white border rounded-lg hover:shadow')
-                    img(src=seller.image, alt="item")
+                    img.w-28.h-28(src=seller.image, alt="item")
                     p(class='')= seller.name
