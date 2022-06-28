@@ -1,10 +1,9 @@
 extends ../layout
 
 block content
-    each category in categories
-        h1
-            a(href=category.url)
-                | #{category.name}
-    if categories.length == 0
-        p No categories found
-    end
+    div(class='flex flex-col items-center justify-start w-full h-full p-8 animate-reveal-page')
+        h1(class='text-3xl font-bold') Categories
+        ul(class='flex flex-wrap items-start justify-start w-full h-full gap-12 p-8 pt-12 pl-12 overflow-y-scroll')
+            each category in categories
+                a(href=category.url class='flex items-center justify-center gap-4 p-12 overflow-hidden transition-all scale-125 bg-white border rounded-lg hover:shadow')
+                    p(class='text-lg')= category.name
