@@ -709,9 +709,29 @@ select {
   --tw-scale-y: 1.25;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+@-webkit-keyframes revealPage {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes revealPage {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 .animate-reveal-page {
-  -webkit-animation: revealPage 0.3s ease-in-out;
-          animation: revealPage 0.3s ease-in-out;
+  -webkit-animation: revealPage .7s ease-in-out;
+          animation: revealPage .7s ease-in-out;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));

@@ -3,7 +3,17 @@
 module.exports = {
   content: ["./public/**/*.html", "./views/**/*.pug"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "reveal-page": "revealPage .7s ease-in-out",
+      },
+      keyframes: {
+        revealPage: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/forms"),
