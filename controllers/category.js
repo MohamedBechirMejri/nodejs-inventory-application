@@ -9,7 +9,7 @@ const Item = require("../models/item");
 exports.index = (req, res) => {
   Category.find()
     .then(categories => {
-      res.render("categories/index", { categories });
+      res.render("categories/index", { categories, title: "Categories" });
     })
     .catch(err => {
       debug(err);
@@ -39,13 +39,14 @@ exports.read = (req, res, next) => {
       res.render("categories/show", {
         category: results.category,
         items: results.items,
+        title: results.category.name,
       });
     }
   );
 };
 
 exports.createGet = (req, res) => {
-  res.render("categories/create");
+  res.render("categories/create", { title: "Create Category" });
 };
 
 exports.createPost = [
@@ -62,6 +63,7 @@ exports.createPost = [
       res.render("categories/create", {
         errors: errors.array(),
         name: req.body.name,
+        title: "Create Category",
       });
       return;
     }
@@ -86,7 +88,7 @@ exports.updateGet = (req, res, next) => {
       error.status = 404;
       return next(error);
     }
-    res.render("categories/edit", { category });
+    res.render("categories/edit", { category, title: "Edit Category" });
   });
 };
 
@@ -100,6 +102,7 @@ exports.updatePost = [
       res.render("categories/edit", {
         errors: errors.array(),
         name: req.body.name,
+        title: "Edit Category",
       });
     } else {
       Category.findByIdAndUpdate(
@@ -127,7 +130,7 @@ exports.deleteGet = (req, res, next) => {
       error.status = 404;
       return next(error);
     }
-    res.render("categories/delete", { category });
+    res.render("categories/delete", { category, title: "Delete Category" });
   });
 };
 
@@ -149,7 +152,11 @@ exports.deletePost = [
           error.status = 404;
           return next(error);
         }
-        res.render("categories/delete", { errors: errors.array(), category });
+        res.render("categories/delete", {
+          errors: errors.array(),
+          category,
+          title: "Delete Category",
+        });
       });
     } else
       Category.findByIdAndRemove(req.params.id, err => {

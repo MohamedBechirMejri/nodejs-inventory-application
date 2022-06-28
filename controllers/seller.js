@@ -10,7 +10,7 @@ const Item = require("../models/item");
 exports.index = (req, res) => {
   Seller.find()
     .then(sellers => {
-      res.render("sellers/index", { sellers });
+      res.render("sellers/index", { sellers, title: "Sellers" });
     })
     .catch(err => {
       debug(err);
@@ -40,13 +40,14 @@ exports.read = (req, res, next) => {
       res.render("sellers/show", {
         seller: results.seller,
         items: results.items,
+        title: results.seller.name,
       });
     }
   );
 };
 
 exports.createGet = (req, res) => {
-  res.render("sellers/create");
+  res.render("sellers/create", { title: "Create Seller" });
 };
 
 exports.createPost = [
@@ -73,6 +74,7 @@ exports.createPost = [
       return res.render("sellers/create", {
         errors: errors.array(),
         seller,
+        title: "Create Seller",
       });
 
     async.parallel(
@@ -110,7 +112,7 @@ exports.updateGet = (req, res, next) => {
         error.status = 404;
         return next(error);
       }
-      res.render("sellers/edit", { seller });
+      res.render("sellers/edit", { seller, title: "Edit Seller" });
     })
     .catch(err => {
       debug(err);
@@ -134,6 +136,7 @@ exports.updatePost = [
       return res.render("sellers/edit", {
         errors: errors.array(),
         seller: req.body,
+        title: "Edit Seller",
       });
     }
 
@@ -168,7 +171,7 @@ exports.deleteGet = (req, res, next) => {
         error.status = 404;
         return next(error);
       }
-      res.render("sellers/delete", { seller });
+      res.render("sellers/delete", { seller, title: "Delete Seller" });
     })
     .catch(err => {
       debug(err);
@@ -192,7 +195,11 @@ exports.deletePost = [
           error.status = 404;
           return next(error);
         }
-        res.render("sellers/delete", { errors: errors.array(), seller });
+        res.render("sellers/delete", {
+          errors: errors.array(),
+          seller,
+          title: "Delete Seller",
+        });
       });
     } else
       Seller.findByIdAndRemove(req.params.id)

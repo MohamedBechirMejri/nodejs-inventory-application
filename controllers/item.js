@@ -15,6 +15,7 @@ exports.index = (req, res, next) => {
       if (err) return next(err);
       res.render("items/index", {
         items,
+        title: "Items",
       });
     });
 };
@@ -37,6 +38,7 @@ exports.read = (req, res, next) => {
       }
       res.render("items/show", {
         item: results.item,
+        title: results.item.name,
       });
     }
   );
@@ -59,6 +61,7 @@ exports.createGet = (req, res, next) => {
       res.render("items/create", {
         categories: results.categories,
         sellers: results.sellers,
+        title: "Create Item",
       });
     }
   );
@@ -112,6 +115,7 @@ exports.createPost = [
             sellers: results.sellers,
             item,
             errors: errors.array(),
+            title: "Create Item",
           });
         }
       );
@@ -165,6 +169,7 @@ exports.updateGet = (req, res, next) => {
         item: results.item,
         categories: results.categories,
         sellers: results.sellers,
+        title: "Edit Item",
       });
     }
   );
@@ -208,6 +213,7 @@ exports.updatePost = [
             sellers: results.sellers,
             item: req.body,
             errors: errors.array(),
+            title: "Edit Item",
           });
         }
       );
@@ -250,6 +256,7 @@ exports.deleteGet = (req, res, next) => {
     }
     res.render("items/delete", {
       item,
+      title: "Delete Item",
     });
   });
 };
@@ -276,6 +283,7 @@ exports.deletePost = [
           item,
           errors: errors.array(),
           adminpass: req.body.adminpass,
+          title: "Delete Item",
         });
       });
     else
