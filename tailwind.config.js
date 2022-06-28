@@ -5,12 +5,17 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        "reveal-page": "revealPage .7s ease-in-out",
+        "reveal-page": "revealPage .2s ease-in-out",
       },
       keyframes: {
         revealPage: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
+          "0%": {
+            transform: "translateY(10%)",
+            opacity: 0,
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
         },
       },
     },
