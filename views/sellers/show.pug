@@ -1,15 +1,15 @@
 extends ../layout
 
 block content
-    div(class='grid w-full h-full grid-cols-10 grid-rows-1 gap-4 p-4')
+    div(class='grid w-full h-full grid-cols-10 grid-rows-1 gap-4 p-4 animate-reveal-page')
         div(class='flex flex-col justify-start items-center w-full h-full [grid-area:1/1/2/3] gap-4')
             div(class='flex flex-col items-center justify-center')
                 img(src='https://' + seller.image.replace('http://', '').replace('https://', ''), alt="seller")
                 h1(class='font-bold')= seller.name
             div(class='flex flex-col items-center justify-center')
-                a(href="mailto:" + seller.email, class='')
+                a(href="mailto:" + seller.email, class='transition-all hover:underline')
                     | Send Email
-                a(href="tel:" + seller.phone, class='')
+                a(href="tel:" + seller.phone, class='transition-all hover:underline')
                     | Call
             div(class='flex items-center justify-center gap-4')
                 a(href=seller.url + "/edit" class='p-2 px-4 text-white transition-all bg-green-500 border rounded-lg hover:bg-green-600')
