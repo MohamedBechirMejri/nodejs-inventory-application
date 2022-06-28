@@ -1,12 +1,14 @@
 extends ../layout
 
 block content
-    h1 Delete #{category.name}
-    form(action="" method="POST")
-        if errors && errors.length > 0
-            each error in errors
-                p.error= error.msg
-
-        input(type="text" name="adminpass" placeholder="Password" required autofocus)
-        input(type="hidden" value=category._id required)
-        input(type="submit" value="Submit")
+    div(class='flex flex-col items-center justify-center w-full h-full gap-8 p-8 animate-reveal-page')
+        h1(class='text-3xl font-bold') Delete #{category.name} ?
+        if errors
+            ul
+                each error in errors
+                    li(class='text-red-500')= error.msg
+        form(action="" method="post" class='flex flex-col items-center justify-center gap-4')
+            input(type="password" name="adminpass" required placeholder="Admin Password" class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+            div(class='flex items-center justify-center gap-4')
+                a(href=category.url class='px-4 py-2 font-bold text-white transition-all bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600') Back
+                input(type="submit" value="Confirm" class='px-4 py-2 font-bold text-white transition-all bg-red-500 rounded-md cursor-pointer hover:bg-red-600')
