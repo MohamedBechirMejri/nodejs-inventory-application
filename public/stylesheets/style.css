@@ -903,6 +903,9 @@ select {
 .pr-12 {
   padding-right: 3rem;
 }
+.pt-8 {
+  padding-top: 2rem;
+}
 .text-center {
   text-align: center;
 }
