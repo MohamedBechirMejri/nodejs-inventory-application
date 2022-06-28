@@ -2,14 +2,14 @@ extends ../layout
 
 block content
 
-    form(action='' method='post')
+    form(action='' method='post' class='flex flex-col items-center justify-center w-full h-full gap-12 p-8 animate-reveal-page' autocomplete='off')
         if errors
             ul
                 each error in errors
                     li= error.msg
-        h1 Create Seller
-        input(type='text' name='name' required placeholder='Name' value=seller.name)
-        input(type="email" name="email" required placeholder="Email" value=seller.email)
-        input(type='tel' name='phone' required placeholder='Phone' value=seller.phone)
-        input(type='text' name='image' required placeholder='Image Url' value=seller.image)
-        input(type='submit' value='Create')
+        h1(class='text-3xl font-bold') Create Seller
+        input(type='text' name='name' required placeholder='Name' value=seller.name class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+        input(type="email" name="email" required placeholder="Email" value=seller.email class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+        input(type='tel' name='phone' required placeholder='Phone' value=seller.phone class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+        input(type='text' name='image' required placeholder='Image Url' value=seller.image class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+        input(type='submit' value='Create' class='px-4 py-2 font-bold text-white transition-all bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600')
