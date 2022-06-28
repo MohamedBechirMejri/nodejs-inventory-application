@@ -24,7 +24,7 @@ block content
                 ul(class='flex flex-wrap items-start justify-start w-full h-full gap-12 p-8 pt-12 pl-12 overflow-y-scroll')
                     each item in items
                         a(href=item.url class='flex flex-col items-center justify-center pb-2 overflow-hidden transition-all scale-125 bg-white border rounded-lg hover:shadow')
-                            img(src=item.image, alt="item")
+                            img.w-28.h-28(src=item.image, alt="item")
                             p(class='')= item.name
                             p(class='font-bold')= item.price + '$'
             else
