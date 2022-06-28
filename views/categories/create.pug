@@ -1,13 +1,15 @@
 extends ../layout
 
 block content
-    h1 New Category
-    form(action="/categories/create" method="POST")
-        if error
-            p.error= error
 
+    form(action='' method='post' class='flex flex-col items-center justify-center w-full h-full gap-12 p-8 animate-reveal-page' autocomplete='off')
+        if errors
+            ul
+                each error in errors
+                    li= error.msg
+        h1(class='text-3xl font-bold') Create Category
         if category
-            input(type="text" name="name" placeholder="Name" value=category.name    required autofocus)
+            input(type="text" name="name" placeholder="Name" value=category.name required autofocus class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
         else
-            input(type="text" name="name" placeholder="Name" required)
-        input(type="submit" value="Create")
+            input(type="text" name="name" placeholder="Name" required class="block mt-1 transition-all bg-gray-200 border-transparent rounded-md focus:border-gray-500 focus:bg-white focus:ring-0 w-[25em] hover:bg-gray-300")
+        input(type='submit' value='Create' class='px-4 py-2 font-bold text-white transition-all bg-blue-500 rounded-md cursor-pointer hover:bg-blue-600')
