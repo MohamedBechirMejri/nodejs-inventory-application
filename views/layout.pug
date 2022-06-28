@@ -7,12 +7,11 @@ html
     header(class='bg-gray-900 text-white text-center flex justify-between items-center h-full p-4 [grid-area:1/1/1/2]')
       h1(class='font-bold')
         a(href="/")  B Store
-      nav(class='font-semibold flex justify-center items-center gap-4')
+      nav(class='flex items-center justify-center gap-4 font-semibold')
         a(href='/items') Items
         a(href='/categories') Categories
         a(href='/sellers') Sellers
-      div(class='font-semibold flex justify-center items-center gap-4')
-        a(href='#') Sign up
-        a(href='#') Login
+      div(class='flex items-center justify-center gap-4 font-semibold')
+        a(href='/create') Create
     main(class='[grid-area:2/1/12/2]')
       block content
